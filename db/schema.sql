@@ -59,7 +59,6 @@ CREATE TABLE IF NOT EXISTS ccg_employees (
   -- Koori Ui
   -- Juuzou Suzuya
 -- Associate Special Class Investigator
-  -- Arine
   -- Shiki Kijima
   -- Kousuke Houji
   -- Koori Ui
@@ -75,7 +74,7 @@ CREATE TABLE IF NOT EXISTS ccg_employees (
 CREATE TABLE IF NOT EXISTS ccg_ghouls (
   id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
   name varchar(255) NOT NULL,
-  quinque varchar(255) NOT NULL,
+  kagune varchar(255) NOT NULL,
   rating_id int(255) NOT NULL,
   INDEX ratingindex (rating_id),
   FOREIGN KEY (rating_id)
@@ -96,7 +95,6 @@ CREATE TABLE IF NOT EXISTS ccg_ghouls (
 -- SS
   -- Uta
   -- Hinami Fueguchi
-  -- Roma Hoito
   -- Kaya Irimi
   -- Ayato Kirishima
   -- Touka Kirishima
@@ -116,3 +114,15 @@ CREATE TABLE IF NOT EXISTS ccg_ghouls (
   -- Akashi Kobayashi
 -- C
   -- Scarecrow
+
+  VALUES
+    ('SSS'),
+    ('SS+'),
+    ('SS-'),
+    ('SS'),
+    ('S+'),
+    ('S-'),
+    ('S'),
+    ('A'),
+    ('B'),
+    ('C');
