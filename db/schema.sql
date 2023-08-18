@@ -4,15 +4,27 @@ CREATE DATABASE CCG_DATABASE;
 USE CCG_DATABASE;
 
 CREATE TABLE IF NOT EXISTS ccg_departments (
-  id int NOT NULL UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  name varchar(255) NOT NULL,
+  id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  name varchar(255) NOT NULL
 );
 -- Senior Investigators, Junior Investigators
 
+CREATE TABLE IF NOT EXISTS ccg_ghoulratings (
+  id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  classification varchar(255) UNIQUE NOT NULL
+);
+-- SSS
+-- SS
+-- S+
+-- S-
+-- A
+-- B
+-- C
+
 CREATE TABLE IF NOT EXISTS ccg_roles (
-  id int NOT NULL UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
   title varchar(255) UNIQUE NOT NULL,
-  salary decimal UNSIGNED NOT NULL,
+  salary decimal NOT NULL,
   department_id int(255) NOT NULL,
   INDEX depindex (department_id),
   FOREIGN KEY (department_id) 
@@ -29,7 +41,7 @@ CREATE TABLE IF NOT EXISTS ccg_roles (
   -- Fourth Class Investigator
 
 CREATE TABLE IF NOT EXISTS ccg_employees (
-  id int NOT NULL UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
   first_name varchar(255) NOT NULL,
   last_name varchar(255) NOT NULL,
   role_id int(255) NOT NULL,
@@ -60,21 +72,8 @@ CREATE TABLE IF NOT EXISTS ccg_employees (
   -- Take Hirako
 
 
-CREATE TABLE IF NOT EXISTS ccg_ghoulratings (
-  id int NOT NULL UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  classification varchar(255) UNIQUE NOT NULL
-);
--- SSS
--- SS
--- S+
--- S-
--- A
--- B
--- C
-
-
 CREATE TABLE IF NOT EXISTS ccg_ghouls (
-  id int NOT NULL UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
   name varchar(255) NOT NULL,
   quinque varchar(255) NOT NULL,
   rating_id int(255) NOT NULL,
@@ -117,5 +116,3 @@ CREATE TABLE IF NOT EXISTS ccg_ghouls (
   -- Akashi Kobayashi
 -- C
   -- Scarecrow
-
-
