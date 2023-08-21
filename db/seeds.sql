@@ -31,24 +31,24 @@ VALUES
     ('Fourth Class Investigator', 30000, 2);
 
 INSERT INTO ccg_employees
-    (first_name, last_name, role_id)
+    (first_name, last_name, role_id, manager_id)
 VALUES
-    ('Koutarou', 'Amon', 1),
-    ('Kureo', 'Mado', 1),
-    ('Yukinori', 'Shinohara', 1),
-    ('Iwao', 'Kuroiwa', 1),
-    ('Kishou', 'Arima', 1),
-    ('Koori', 'Ui', 1),
-    ('Juuzou', 'Suzuya', 1),
-    ('Shiki', 'Kijima', 2),
-    ('Kousuke', 'Houji', 2),
-    ('Koori', 'Ui', 2),
-    ('Haise', 'Sasaki', 2),
-    ('Keijin', 'Nakarai', 3),
-    ('Nobu', 'Shimoguchi', 3),
-    ('Naoto', 'Hayashimura', 3),
-    ('Juuji', 'Nakata', 3),
-    ('Take', 'Hirako', 3);
+    ('Koutarou', 'Amon', 1, NULL),
+    ('Kureo', 'Mado', 1, NULL),
+    ('Yukinori', 'Shinohara', 1, NULL),
+    ('Iwao', 'Kuroiwa', 1, NULL),
+    ('Kishou', 'Arima', 1, NULL),
+    ('Koori', 'Ui', 1, NULL),
+    ('Juuzou', 'Suzuya', 1, NULL),
+    ('Shiki', 'Kijima', 2, 1),
+    ('Kousuke', 'Houji', 2, 2),
+    ('Koori', 'Ui', 2, 3),
+    ('Haise', 'Sasaki', 2, 4),
+    ('Keijin', 'Nakarai', 3, 1),
+    ('Nobu', 'Shimoguchi', 3, 2),
+    ('Naoto', 'Hayashimura', 3, 3),
+    ('Juuji', 'Nakata', 3, 4),
+    ('Take', 'Hirako', 3, 5);
 
 INSERT INTO ccg_ghouls
     (name, kagune, rating_id)
