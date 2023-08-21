@@ -48,7 +48,12 @@ CREATE TABLE IF NOT EXISTS ccg_employees (
   INDEX roleindex (role_id),
   FOREIGN KEY (role_id)
   REFERENCES ccg_roles(id)
-  ON DELETE CASCADE
+  ON DELETE CASCADE,
+  manager_id int(255),
+  INDEX manindex (manager_id),
+  FOREIGN KEY (manager_id)
+  REFERENCES ccg_employees(id)
+  ON DELETE SET NULL
 );
 -- Special Class Investigator
   -- Koutarou Amon
