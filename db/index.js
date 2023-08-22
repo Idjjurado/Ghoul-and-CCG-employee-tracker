@@ -73,12 +73,12 @@ class DB {
       .query("DELETE FROM ccg_employees WHERE id = ?", CCGemployeeId);
   }
 
-  findAllCCGEmployeesByDepartment(CCGdepartmentId) {
+  viewCCGEmployeeManager(CCGmanagerId) {
     return this.connection
       .promise()
       .query(
-        "SELECT ccg_employees.id, ccg_employees.first_name, ccg_employees.last_name, ccg_roles.title FROM ccg_employees LEFT JOIN ccg_roles on ccg_employees.role_id = ccg_roles.id LEFT JOIN ccg_departments ccg_departments on ccg_roles.department_id = ccg_departments.id WHERE ccg_departments.id = ?;",
-        CCGdepartmentId,
+        "SELECT ccg_employees.id, ccg_employees.first_name, ccg_employees.last_name, ccg_departments.name AS ccg_departments, ccg_roles.title FROM ccg_employees LEFT JOIN ccg_roles on ccg_roles.id = ccg_employees.role_id LEFT JOIN ccg_departments ON ccg_departments.id = ccg_roles.department_id WHERE manager_id = ?;",
+        CCGmanagerId,
       );
   }
 
@@ -100,12 +100,51 @@ class DB {
       ]);
   }
 
+  findAllCCGEmployeesByDepartment(CCGdepartmentId) {
+    return this.connection
+      .promise()
+      .query(
+        "SELECT ccg_employees.id, ccg_employees.first_name, ccg_employees.last_name, ccg_roles.title FROM ccg_employees LEFT JOIN ccg_roles on ccg_employees.role_id = ccg_roles.id LEFT JOIN ccg_departments ccg_departments on ccg_roles.department_id = ccg_departments.id WHERE ccg_departments.id = ?;",
+        CCGdepartmentId,
+      );
+  }
+
   viewAllGhouls() {
     return this.connection
     .promise()
     .query(
       "SELECT ccg_ghouls.id, ccg_ghouls.name, ccg_ghouls.kagune, ccg_ghoulratings.classification FROM ccg_ghouls LEFT JOIN ccg_ghoulratings on ccg_ghouls.rating_id = ccg_ghoulratings.id;",
       );
+  }
+
+  addGhoul(ghoul) {
+    return this.connection
+      .promise()
+      .query("INSERT INTO ccg_ghouls SET ?", ghoul);
+  }
+
+  removeGhoul(ghoulId) {
+    return this.connection
+      .promise()
+      .query("DELETE FROM ccg_ghouls WHERE id = ?", ghoulId);
+  }
+
+  viewGhoulsByRating(CCGghoulRatingId) {
+    return this.connection
+      .promise()
+      .query(
+        "SELECT ccg_ghouls.id, ccg_ghouls.name, ccg_ghouls.kagune, ccg_ghoulratings.classification FROM ccg_ghouls LEFT JOIN ccg_ghoulratings on ccg_ghouls.rating_id = ccg_ghoulratings.id WHERE ccg_ghoulratings.id = ?;",
+        CCGghoulRatingId,
+      );
+  }
+
+  updateGhoulRating(ghoulId, ratingId) {
+    return this.connection
+      .promise()
+      .query("UPDATE ccg_ghouls SET rating_id = ? WHERE id = ?", [
+        ratingId,
+        ghoulId,
+      ]);
   }
   
   findAllPossibleManagers(CCGemployeeId) {
@@ -117,14 +156,6 @@ class DB {
       );
   }
 
-  findAllEmployeesByManager(CCGmanagerId) {
-    return this.connection
-      .promise()
-      .query(
-        "SELECT ccg_employees.id, ccg_employees.first_name, ccg_employees.last_name, ccg_departments.name AS ccg_departments, ccg_roles.title FROM ccg_employees LEFT JOIN ccg_roles on ccg_roles.id = ccg_employees.role_id LEFT JOIN ccg_departments ON ccg_departments.id = ccg_roles.department_id WHERE manager_id = ?;",
-        CCGmanagerId,
-      );
-  }
 }
 
 module.exports = new DB(connection);

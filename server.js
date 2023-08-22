@@ -61,7 +61,7 @@ function allPrompts {
             value: "UPDATE_CCG_EMPLOYEES"
           },
           {
-            name: "View a CCG Employee's Manager",
+            name: "View CCG Employee's by Manager",
             value: "CCG_EMPLOYEES_MANAGER"
           },
           {
@@ -82,7 +82,11 @@ function allPrompts {
           },
           {
             name: "Update a classified Ghoul's rating......",
-            value: "UPDATE_GHOULS"
+            value: "UPDATE_GHOULS_RATING"
+          },
+          {
+            name: "View all Ghoul's for a specific rating......",
+            value: "VIEW_GHOULS_BY_RATING"
           },
           {
             name: "View Total Department Budgets",
@@ -109,9 +113,6 @@ function allPrompts {
           case "REMOVE_CCG_DEPARTMENTS":
             removeCCGDepartment();
             break;
-          case "UPDATE_CCG_DEPARTMENTS":
-            updateCCGDepartment();
-            break;
           case "ALL_CCG_ROLES":
             viewAllCCGRoles();
             break;
@@ -130,11 +131,11 @@ function allPrompts {
           case "REMOVE_CCG_EMPLOYEES":
             removeCCGEmployee();
             break;
-          case "UPDATE_CCG_EMPLOYEES_ROLE":
-            updateCCGEmployeeRole();
-            break;
           case "CCG_EMPLOYEES_MANAGER":
             viewCCGEmployeeManager();
+            break;
+          case "UPDATE_CCG_EMPLOYEES_ROLE":
+            updateCCGEmployeeRole();
             break;
           case "UPDATE_CCG_EMPLOYEES_MANAGER":
             updateCCGEmployeeManager();
@@ -148,8 +149,11 @@ function allPrompts {
           case "REMOVE_GHOULS":
             removeGhoul();
             break;
-          case "UPDATE_GHOULS":
-            updateGhoul();
+          case "VIEW_GHOULS_BY_RATING":
+            viewGhoulsByRating();
+            break;
+          case "UPDATE_GHOULS_RATING":
+            updateGhoulRating();
             break;
           default:
             quit();
