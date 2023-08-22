@@ -13,7 +13,7 @@ function init() {
     allPrompts();
 }
 
-function allPrompts {
+function allPrompts() {
     prompt([
       {
         type: "list",
@@ -160,4 +160,42 @@ function allPrompts {
         }
       }
       )
+}
+
+// View all CCG Investigator departments budgetary spending on salaries
+function viewMoniesForDepartments() {
+  db.viewMoniesForDepartments()
+    .then(([rows]) => {
+      let departments = rows;
+      console.log("\n");
+      console.table(departments);
+    })
+    .then(() => allPrompts());
+}
+
+// View all CCG Investigator departments
+function viewAllCCGDepartments() {
+  db.viewAllCCGDepartments()
+    .then(([rows]) => {
+      let departments = rows;
+      console.log("\n");
+      console.table(departments);
+    })
+    .then(() => allPrompts());
+}
+
+// Add a CCG Investigator department
+function addCCGDepartment() {
+  prompt([
+    {
+      name: "name",
+      message: "What is the name of the new CCG Investigator department?"
+    }
+  ])
+    .then(res => {
+      let name = res;
+      db.addCCGDepartment(name)
+        .then(() => console.log(`Added ${name.name} to the database`))
+        .then(() => allPrompts())
+    })
 }
