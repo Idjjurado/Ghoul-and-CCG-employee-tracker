@@ -1,6 +1,6 @@
 ![GHOUL AND CCG EMPLOYEE TRACKER](./assets/logoforreadme.png)
 
-link to walthrough video:
+link to walthrough video: https://watch.screencastify.com/v/K8fYBjzJWbIFQnDQ13m7
 
 ## Description
 
