@@ -156,6 +156,14 @@ class DB {
       );
   }
 
+  viewAllRatings() {
+    return this.connection
+    .promise()
+    .query(
+      "SELECT ccg_ghoulratings.id, ccg_ghoulratings.classification FROM ccg_ghoulratings;",
+      );
+  }
+
 }
 
 module.exports = new DB(connection);
