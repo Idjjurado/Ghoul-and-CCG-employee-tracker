@@ -111,9 +111,9 @@ class DB {
 
   viewAllGhouls() {
     return this.connection
-    .promise()
-    .query(
-      "SELECT ccg_ghouls.id, ccg_ghouls.name, ccg_ghouls.kagune, ccg_ghoulratings.classification FROM ccg_ghouls LEFT JOIN ccg_ghoulratings on ccg_ghouls.rating_id = ccg_ghoulratings.id;",
+      .promise()
+      .query(
+        "SELECT ccg_ghouls.id, ccg_ghouls.name, ccg_ghouls.kagune, ccg_ghoulratings.classification FROM ccg_ghouls LEFT JOIN ccg_ghoulratings on ccg_ghouls.rating_id = ccg_ghoulratings.id;",
       );
   }
 
@@ -146,24 +146,23 @@ class DB {
         ghoulId,
       ]);
   }
-  
+
   findAllPossibleManagers(CCGemployeeId) {
     return this.connection
-    .promise()
-    .query(
-      "SELECT id, first_name, last_name FROM ccg_employees WHERE id != ?",
-      CCGemployeeId,
+      .promise()
+      .query(
+        "SELECT id, first_name, last_name FROM ccg_employees WHERE id != ?",
+        CCGemployeeId,
       );
   }
 
   viewAllRatings() {
     return this.connection
-    .promise()
-    .query(
-      "SELECT ccg_ghoulratings.id, ccg_ghoulratings.classification FROM ccg_ghoulratings;",
+      .promise()
+      .query(
+        "SELECT ccg_ghoulratings.id, ccg_ghoulratings.classification FROM ccg_ghoulratings;",
       );
   }
-
 }
 
 module.exports = new DB(connection);
