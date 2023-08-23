@@ -1,5 +1,5 @@
 {
-  "name": "main",
+  "name": "ccg-ghoul-investigator-tracker",
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
@@ -7,12 +7,14 @@
     "start": "node server.js"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Ismael Jimenez-Jurado (One Eyed Ghoul King!)",
+  "license": "MIT",
   "description": "",
   "dependencies": {
-    "express": "^4.17.1",
-    "jshint": "^2.12.0",
-    "mysql2": "^2.2.5"
+    "inquirer": "8.2.4",
+    "mysql2": "^2.2.5",
+    "prettier": "^3.0.2",
+    "asciiart-logo": "^0.2.7",
+    "console.table": "^0.10.0"
   }
 }

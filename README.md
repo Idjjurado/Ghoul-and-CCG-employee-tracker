@@ -1,12 +1,14 @@
 ![GHOUL AND CCG EMPLOYEE TRACKER](./assets/logoforreadme.png)
 
-link to walthrough video: 
+link to walthrough video:
 
 ## Description
+
 In this interface you will be able to execute various CMS functions with an Inspector/Ghoul tracking system!
 Here you can keep track of the most top rated ghouls along with the most highly coveted inspectors!
 
 You will be able to view Ghouls rated from:
+
 - SSSSS rated - C Rated
 
 Example Ghoul:
@@ -14,18 +16,16 @@ Example Ghoul:
 ![GHOUL Example](./assets/kanekigif.gif)
 
 Alongside that, you can view Inspectors from:
-- Special Class Investigator - Rank 3 Investigator
 
+- Special Class Investigator - Rank 3 Investigator
 
 Example CCG Investigator:
 
 ![CCG Investigator!](./assets/juuzou.gif)
 
-
 ## Usage
 
 Public Repo link: https://github.com/Idjjurado/Ghoul-and-CCG-employee-tracker
-
 
 ## Technologies used!
 
@@ -50,6 +50,7 @@ I WANT to be able to view and manage the departments, roles, and employees in my
 SO THAT I can organize and plan my business
 
 ## GIVEN a command-line application that accepts user input:
+
 - WHEN I start the application
   - THEN I am presented with the following options: view all departments, view all roles, view all employees, add a department, add a role, add an employee, and update an employee role
 - WHEN I choose to view all departments
