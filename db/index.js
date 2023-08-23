@@ -160,7 +160,7 @@ class DB {
     return this.connection
       .promise()
       .query(
-        "SELECT ccg_ghoulratings.id, ccg_ghoulratings.classification FROM ccg_ghoulratings;",
+        "SELECT * FROM ccg_ghoulratings ORDER BY id;",
       );
   }
 }

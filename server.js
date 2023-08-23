@@ -57,8 +57,8 @@ function allPrompts() {
           value: "REMOVE_CCG_EMPLOYEES",
         },
         {
-          name: "Update a CCG Employee",
-          value: "UPDATE_CCG_EMPLOYEES",
+          name: "Update a CCG Employee's Role",
+          value: "UPDATE_CCG_EMPLOYEES_ROLE",
         },
         {
           name: "View CCG Employee's by Manager",
@@ -207,7 +207,7 @@ function addCCGDepartment() {
 
 // Remove a CCG Investigator department
 function removeCCGDepartment() {
-  db.removeCCGDepartment().then(([rows]) => {
+  db.viewAllCCGDepartments().then(([rows]) => {
     let departments = rows;
     const departmentChoices = departments.map(({ id, name }) => ({
       name: name,
@@ -221,7 +221,7 @@ function removeCCGDepartment() {
         "Which department would you like to remove? (Warning: This will also remove associated roles and employees)",
       choices: departmentChoices,
     })
-      .then((res) => db.removeDepartment(res.departmentId))
+      .then((res) => db.removeCCGDepartment(res.departmentId))
       .then(() => console.log(`Removed department from the database`))
       .then(() => allPrompts());
   });
@@ -230,6 +230,17 @@ function removeCCGDepartment() {
 // View all CCG Investigator roles
 function viewAllCCGRoles() {
   db.viewAllCCGRoles()
+    .then(([rows]) => {
+      let roles = rows;
+      console.log("\n");
+      console.table(roles);
+    })
+    .then(() => allPrompts());
+}
+
+// View all Ghoul Ratings
+function viewAllRatings() {
+  db.viewAllRatings()
     .then(([rows]) => {
       let roles = rows;
       console.log("\n");
@@ -263,7 +274,7 @@ function addCCGRole() {
         choices: departmentChoices,
       },
     ]).then((role) => {
-      db.createRole(role)
+      db.addCCGRole(role)
         .then(() => console.log(`Added ${role.title} to the database`))
         .then(() => allPrompts());
     });
@@ -288,7 +299,7 @@ function removeCCGRole() {
         choices: roleChoices,
       },
     ])
-      .then((res) => db.removeRole(res.roleId))
+      .then((res) => db.removeCCGRole(res.roleId))
       .then(() => console.log("Removed role from the database"))
       .then(() => allPrompts());
   });
@@ -428,7 +439,7 @@ function updateCCGEmployeeRole() {
             choices: roleChoices,
           },
         ])
-          .then((res) => db.updateEmployeeRole(employeeId, res.roleId))
+          .then((res) => db.updateCCGEmployeeRole(employeeId, res.roleId))
           .then(() => console.log("Updated employee's role"))
           .then(() => allPrompts());
       });
@@ -480,6 +491,47 @@ function updateCCGEmployeeManager() {
   });
 }
 
+// Update a Ghoul's role
+function updateGhoulRating() {
+  db.viewAllGhouls().then(([rows]) => {
+    let ghouls = rows;
+    const ghoulChoices = ghouls.map(({ id, name }) => ({
+      name: name,
+      value: id,
+    }));
+
+    prompt([
+      {
+        type: "list",
+        name: "ghoulId",
+        message: "Which Ghoul's rating do you want to update?",
+        choices: ghoulChoices,
+      },
+    ]).then((res) => {
+      let ghoulId = res.ghoulId;
+      db.viewAllRatings().then(([rows]) => {
+        let ratings = rows;
+        const ratingChoices = ratings.map(({ id, classification }) => ({
+          name: classification,
+          value: id,
+        }));
+
+        prompt([
+          {
+            type: "list",
+            name: "rating_id",
+            message: "Which rating do you want to assign the Ghoul?",
+            choices: ratingChoices,
+          },
+        ])
+          .then((res) => db.updateGhoulRating(ghoulId, res.rating_id))
+          .then(() => console.log("Updated Ghoul's rating"))
+          .then(() => allPrompts());
+      });
+    });
+  });
+}
+
 // View CCG Employee's by Manager
 function viewCCGEmployeeManager() {
   db.viewAllCCGEmployees().then(([rows]) => {
@@ -511,6 +563,37 @@ function viewCCGEmployeeManager() {
   });
 }
 
+// View Ghouls by Rating
+function viewGhoulsByRating() {
+  db.viewAllGhouls().then(([rows]) => {
+    let ratings = rows;
+    const ratingChoices = ratings.map(({ id, classification }) => ({
+      name: classification,
+      value: id,
+    }));
+
+    prompt([
+      {
+        type: "list",
+        name: "rating_id",
+        message: "Which rating do you want to see associated ghouls for?",
+        choices: ratingChoices,
+      },
+    ])
+      .then((ghouls) => db.viewGhoulsByRating(ghouls.rating_id))
+      .then(([rows]) => {
+        let ghouls = rows;
+        console.log("\n");
+        if (ghouls.length === 0) {
+          console.log("The selected rating has no Ghouls associated!");
+        } else {
+          console.table(ghouls);
+        }
+      })
+      .then(() => allPrompts());
+  });
+}
+
 // View all Ghouls
 function viewAllGhouls() {
   db.viewAllGhouls()
@@ -524,17 +607,17 @@ function viewAllGhouls() {
 
 // Add a Ghoul
 function addGhoul() {
-  db.viewAllGhoulRatings().then(([rows]) => {
+  db.viewAllRatings().then(([rows]) => {
     let Ratings = rows;
     const ghoulRatings = Ratings.map(({ id, classification }) => ({
-      classification: classification,
+      name: classification,
       value: id,
     }));
 
     prompt([
       {
         name: "name",
-        message: "What is the name of the role?",
+        message: "What is the name of the Ghoul?",
       },
       {
         name: "kagune",
